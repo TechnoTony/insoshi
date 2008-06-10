@@ -5,7 +5,27 @@ module ApplicationHelper
   
   def menu
     home     = menu_element("Home",   home_path)
-    people   = menu_element("People", people_path)
+	people   = menu_element("Investors", people_path)
+#	Need to add path information to routes.rb to allow for companies
+	companies = menu_element("Companies", messages_path)
+
+    if Forum.count == 1
+      forum = menu_element("Forum", forum_path(Forum.find(:first)))
+    else
+      forum = menu_element("Forums", forums_path)
+    end
+    resources = menu_element("Resources", "http://docs.insoshi.com/")
+    links = [home, people, companies]
+    if global_prefs.about.blank?
+      links
+    else
+      links.push(menu_element("About", about_url))
+    end
+  end
+ 
+  def sub_menu
+	people   = menu_element("Investors", people_path)
+
     if Forum.count == 1
       forum = menu_element("Forum", forum_path(Forum.find(:first)))
     else
@@ -19,16 +39,16 @@ module ApplicationHelper
       photos   = menu_element("Photos",   photos_path)
       contacts = menu_element("Contacts",
                               person_connections_path(current_person))
-      links = [home, profile, contacts, messages, blog, people, forum]
+      links = [profile, contacts, messages, blog, people, forum]
     elsif logged_in? and admin_view?
       home =    menu_element("Home", home_path)
       people =  menu_element("People", admin_people_path)
       forums =  menu_element(inflect("Forum", Forum.count),
                              admin_forums_path)
       preferences = menu_element("Prefs", admin_preferences_path)
-      links = [home, people, forums, preferences]
+      links = [people, forums, preferences]
     else
-      links = [home, people]
+      links = []
     end
     if global_prefs.about.blank?
       links
@@ -36,7 +56,7 @@ module ApplicationHelper
       links.push(menu_element("About", about_url))
     end
   end
-  
+ 
   def menu_element(content, address)
     { :content => content, :href => address }
   end
@@ -72,19 +92,16 @@ module ApplicationHelper
   #  display("foo", :class => "bar")
   #  => '<p class="bar">foo</p>'
   def display(text, html_options = nil)
-    begin
-      if html_options
-        html_options = html_options.stringify_keys
-        tag_opts = tag_options(html_options)
-      else
-        tag_opts = nil
-      end
-      processed_text = markdown(sanitize(text))
-    rescue
-      # Sometimes Markdown throws exceptions, so rescue gracefully.
-      processed_text = content_tag(:p, sanitize(text))
+    if html_options
+      html_options = html_options.stringify_keys
+      tag_options = tag_options(html_options)
+    else
+      tag_options = nil
     end
-    add_tag_options(processed_text, tag_opts)
+    markdown(sanitize(text)).gsub("<p>", "<p#{tag_options}>")
+  rescue
+    # Sometimes Markdown throws exceptions, so rescue gracefully.
+    content_tag(:p, sanitize(text))
   end
   
   # Output a column div.
@@ -128,9 +145,5 @@ module ApplicationHelper
   
     def inflect(word, number)
       number > 1 ? word.pluralize : word
-    end
-    
-    def add_tag_options(text, options)
-      text.gsub("<p>", "<p#{options}>")
     end
 end
