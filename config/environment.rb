@@ -64,6 +64,10 @@ end
 
 require 'bluecloth'
 
+#load the wrappers for handling the Net::HTTP commands
+require 'lib/rest_client'
+require 'lib/resource'
+
 # Set INLINEDIR to override default location for ruby_inline directory
 # The home directory may not be correctly set in an "su"/"sudo" situation
 # and will lead to runtime errors with image_science
