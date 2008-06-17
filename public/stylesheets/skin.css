@@ -19,11 +19,11 @@ body {
   float: left;
 }
 .col1 {
-  float: left;
+  float: right;
   width: 490px;
 }
 .col2 {
-  float: right;
+  float: left;
   width: 240px;
 }
 .single-col .col1 {
