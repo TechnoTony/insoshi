@@ -5,7 +5,7 @@
   <h2>Hello and welcome to The Start-Up Exchange</h2>
   <p>This site is currently still under development. At the moment it is mostly a deployment of the Insoshi social networking platform, but we are working hard to build in the intended features which will get the site up and running.</p>
   <p>Come back when we launch to trade in the most exciting up and coming startups and private companies.</p>
-  
+   
   <%= render :partial => 'feed' %>
 <%- end -%>
 
@@ -34,6 +34,36 @@
     <div style="text-align: center;">
       <%= link_to image_tag("button_signup.png"), signup_path %>
     </div>
+    
+    <h2>Sign in!</h2>
+	
+	<% form_tag session_path do -%>
+    <div class="form_row">
+      <label for="username">Email address</label>
+      <%= text_field_tag 'email', params[:email],
+                                  :maxlength => Person::MAX_EMAIL  %>
+    </div>
+    <%= set_focus_to_id "email" %>
+
+    <div class="form_row">
+      <label for="password">Password</label>
+      <%= password_field_tag 'password', params[:password],
+                                         :maxlength => Person::MAX_PASSWORD %>
+    </div>
+
+    <div class="form_row">
+      <label for="remember_me" class="checkbox">Remember me:</label>
+      <%= check_box_tag 'remember_me', '1', true, :class => "checkbox" %>
+    </div>
+
+    <div class="form_row">
+      <%= submit_tag 'Sign in', :class => "button" %>
+    </div>
+
+    <p class="form_row">
+      <%= link_to "I forgot my password!", new_password_reminder_path %>
+    </p>
+  <% end -%>
       
   <%- end -%>
 <%- end -%>
