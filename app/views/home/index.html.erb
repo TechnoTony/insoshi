@@ -1,4 +1,11 @@
+
+
 <%- column_div :type => :primary do -%>
+  
+      <h2>Hello and welcome to The Start-Up Exchange</h2>
+      <p>This site is currently still under development. At the moment it is mostly a deployment of the Insoshi social networking platform, but we are working hard to build in the intended features which will get the site up and running.</p>
+      <p>Come back when we launch to trade in the most exciting up and coming startups and private companies.</p>
+  
   <%= render :partial => 'feed' %>
 <%- end -%>
 
@@ -11,9 +18,10 @@
                :locals => { :person => current_person } %>
   <%- else -%>
     <%- unless global_prefs.app_name.blank? -%>
-      <h2>About <%= global_prefs.app_name %></h2>
     
-      <p>
+      
+      <h2>About <%= global_prefs.app_name %></h2>
+<p>
         <%= link_to "Click here", about_path %>
         to learn more about us.
       </p>
