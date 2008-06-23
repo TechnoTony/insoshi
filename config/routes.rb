@@ -17,6 +17,9 @@ ActionController::Routing::Routes.draw do |map|
      person.resources :connections
      person.resources :comments
   end
+  
+  #map.resources :companies
+  
   map.namespace :admin do |admin|
     admin.resources :people, :preferences
     admin.resources :forums do |forums|
