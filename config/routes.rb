@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
      person.resources :comments
   end
   
-  #map.resources :companies
+  map.resources :companies
   
   map.namespace :admin do |admin|
     admin.resources :people, :preferences

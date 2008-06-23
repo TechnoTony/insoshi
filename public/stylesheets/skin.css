@@ -20,11 +20,11 @@ body {
 }
 .col1 {
   float: right;
-  width: 490px;
+  width: 540px;
 }
 .col2 {
   float: left;
-  width: 240px;
+  width: 190px;
 }
 .single-col .col1 {
   margin: 0 210px;

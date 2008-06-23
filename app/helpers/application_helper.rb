@@ -7,7 +7,7 @@ module ApplicationHelper
     home     = menu_element("Home",   home_path)
 	people   = menu_element("Investors", people_path)
 #	Need to add path information to routes.rb to allow for companies
-	companies = menu_element("Companies", messages_path)
+	companies = menu_element("Companies", companies_path)
 
     if Forum.count == 1
       forum = menu_element("Forum", forum_path(Forum.find(:first)))
