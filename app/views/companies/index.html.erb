@@ -1,11 +1,16 @@
 <%- column_div :type => :primary do -%>
   
-  <h2>This will be the company name</h2>
+  <h2>This is the list of currently active companies:</h2>
 
+  <%- for company in @companies %>
+    <%= link_to company.name, :action => 'show', :id =>company.id %><BR>
+  <%- end -%>
+
+  <%= link_to 'new', :action => 'new' %>
 <%- end -%>
 
 <%- column_div :type => :secondary do -%>
   
-  Here will go info to help you trade the company
+
 
 <%- end -%>

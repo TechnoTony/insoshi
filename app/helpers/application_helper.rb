@@ -118,6 +118,15 @@ module ApplicationHelper
     concat(content, block.binding)
   end
 
+  #presumably this can be wrapped into the previous code pretty easily
+  def sub_column_div(options = {}, &block)
+    klass = options.delete(:type) == :left ? "sub-col1" : "sub-col2"
+    # Allow callers to pass in additional classes.
+    options[:class] = "#{klass} #{options[:class]}".strip
+    content = content_tag(:div, capture(&block), options)
+    concat(content, block.binding)
+  end
+
   def email_link(person, options = {})
     reply = options[:replying_to]
     if reply

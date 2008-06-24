@@ -26,6 +26,19 @@ body {
   float: left;
   width: 190px;
 }
+.sub-col1 {
+  float: left;
+  width: 270px;
+}
+.sub-col2 {
+  float: right;
+  width: 270px;
+}
+.col-clear {
+  float: left;
+  width: 540px;
+}
+
 .single-col .col1 {
   margin: 0 210px;
   width: 324px;

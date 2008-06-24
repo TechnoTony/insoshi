@@ -1,0 +1,31 @@
+<%- column_div :type => :primary do -%>
+  
+  <h2><%= @company.name %></h2>
+  Posted by:<%= @company.creator %><br>
+  <%- sub_column_div :type => :left do -%>
+  <table>
+    <tr><td>Ticker:</td><td><%= @company.ticker %></td></tr><br>
+    <tr><td>Sector:</td><td><%= @company.sector %></td></tr><br>
+    <tr><td>Company age:</td><td><%= time_ago_in_words(@company.date_founded) %></td></tr><br>
+    <tr><td>Website:</td><td><%= @company.website %></td></tr><br>
+    <tr><td>Employees:</td><td><%= @company.employees %></td></tr><br>
+    <tr><td>Location:</td><td><%= @company.location %></td></tr><br>
+    <tr><td>Funding:</td><td><%= @company.funding %></td></tr><br>
+  </table>
+  <%- end -%>
+  
+  <%- sub_column_div :type => :right do -%>
+    Share price chart goes here<br>
+    Tags go underneath.<br>
+  <%- end -%>
+  <div class="col-clear"><br>
+  	<%= @company.description %> <br><br>
+    Under here are going to load the user comments.<br><br>
+  </div>
+<%- end -%>
+
+<%- column_div :type => :secondary do -%>
+  
+  Here will go info to help you trade the company
+
+<%- end -%>
