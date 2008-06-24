@@ -1,13 +1,14 @@
 <%- column_div :type => :primary do -%>
   
   <h2><%= @company.name %></h2>
+  <%= link_to "Edit page", :controller => "companies", :action => "edit", :id => @company.id %><br />
   Posted by:<%= @company.creator %><br>
   <%- sub_column_div :type => :left do -%>
   <table>
     <tr><td>Ticker:</td><td><%= @company.ticker %></td></tr><br>
     <tr><td>Sector:</td><td><%= @company.sector %></td></tr><br>
     <tr><td>Company age:</td><td><%= time_ago_in_words(@company.date_founded) %></td></tr><br>
-    <tr><td>Website:</td><td><%= @company.website %></td></tr><br>
+    <tr><td>Website:</td><td><a href="<%= @company.website %>"><%= @company.website %></a></td></tr><br>
     <tr><td>Employees:</td><td><%= @company.employees %></td></tr><br>
     <tr><td>Location:</td><td><%= @company.location %></td></tr><br>
     <tr><td>Funding:</td><td><%= @company.funding %></td></tr><br>

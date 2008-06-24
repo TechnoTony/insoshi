@@ -3,7 +3,7 @@
   <h2>This is the list of currently active companies:</h2>
 
   <%- for company in @companies %>
-    <%= link_to company.name, :action => 'show', :id =>company.id %><BR>
+    <%= link_to company.name, :action => 'show', :id => company.id %><BR>
   <%- end -%>
 
   <%= link_to 'new', :action => 'new' %>
