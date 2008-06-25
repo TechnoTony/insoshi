@@ -29,3 +29,8 @@ RASTER_PER_PAGE = 3 * N_COLUMNS
 # Demo user's id
 # The admin must create a demo user in demo mode with id = 2.
 DEMO_USER_ID = 2
+
+#The following are used to manage the connection.  Comment the appropraite one depending where the app is run from
+#FORESIGHT_URL = 'http://foresightondemand.com:8080/startupexchange/'
+FORESIGHT_URL = 'http://localhost:5001/startupexchange'
+FORESIGHT_PWD = "dau0aeB7"

@@ -1,0 +1,9 @@
+Command tested was: <br />
+<%= @fxtp_cmd %><br /><br />
+
+The response follows: <br />
+<%- @testdoc.each_line do |line| -%>
+  <%= line %><br />
+<%- end -%>
+
+<%= link_to 'Return to test form', :action => 'index' %>

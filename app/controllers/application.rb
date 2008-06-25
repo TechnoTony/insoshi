@@ -14,6 +14,12 @@ class ApplicationController < ActionController::Base
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '71a8c82e6d248750397d166001c5e308'
 
+#the following loads the code and creates the connection for the foresight server
+  require 'lib/rest_client'
+  require 'lib/resource'
+
+  $market = RestClient::Resource.new(FORESIGHT_URL)
+
   private
 
     def admin_required

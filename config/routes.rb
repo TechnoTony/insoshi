@@ -19,6 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :companies
+  map.resources :markets
   
   map.namespace :admin do |admin|
     admin.resources :people, :preferences
