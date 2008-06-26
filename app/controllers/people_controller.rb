@@ -43,22 +43,37 @@ class PeopleController < ApplicationController
     @person = Person.new(params[:person])
     respond_to do |format|
       @person.email_verified = false if global_prefs.email_verifications?
-      @person.save
-      if @person.errors.empty?
-        if global_prefs.email_verifications?
-          @person.email_verifications.create
-          flash[:notice] = %(Thanks for signing up! A verification email has 
+      @response = create_investor(@person)
+	  puts @response[1][0,1]
+	  if @response[1][0,1] == '2'
+	    @person.trader_id = @response[2][5..-1]
+		@person.mkt_pwd = @response[4][10..-1]
+	    @person.save
+        if @person.errors.empty?
+          if global_prefs.email_verifications?
+            @person.email_verifications.create
+            flash[:notice] = %(Thanks for signing up! A verification email has 
                              been sent to #{@person.email}.)
-          format.html { redirect_to(home_url) }
+            format.html { redirect_to(home_url) }
+          else
+            self.current_person = @person
+            flash[:notice] = "Thanks for signing up!"
+            format.html { redirect_back_or_default(home_url) }
+          end
         else
-          self.current_person = @person
-          flash[:notice] = "Thanks for signing up!"
-          format.html { redirect_back_or_default(home_url) }
+#Warning: this delete is not currently working correctly as just creates random trader, needs editing
+          @response = delete_investor(@person.trader_id = @response[2][5..-1])
+		  if @response != '2'
+		    flash[:notice] = 'Warning: possibly duplicate entry created.  Contact administrator'
+		  end
+		  @body = "register single-col"
+          format.html { render :action => 'new' }
         end
-      else
+	  else
         @body = "register single-col"
-        format.html { render :action => 'new' }
-      end
+		flash[:notice] = @response[0]
+        format.html { render :action => 'new' }	    
+	  end
     end
   rescue ActiveRecord::StatementInvalid
     # Handle duplicate email addresses gracefully by redirecting.
@@ -139,4 +154,29 @@ class PeopleController < ApplicationController
     def preview?
       params["commit"] == "Preview"
     end
+
+
+#Market methods start below
+#Testing requires:
+#Can a new account be created
+#What happens if account already exists
+#What happens if server isn't working
+#What happens if user enters wrong information  
+  def delete_investor(trader_id)
+  	@fxtp_cmd = 'admin_user ' + FORESIGHT_PWD + ",set,#{trader_id},,,#{String.random_alphanumeric}@blah.com,1,#{String.random_alphanumeric},0,0,0,0,,2,1,0,0"
+#	puts @fxtp_cmd
+	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
+#	puts @response
+#	puts @response[0,1]
+	return @response[0,1]
+  end	
+
+  def create_investor(investor)
+  	@fxtp_cmd = 'admin_user ' + FORESIGHT_PWD + ",new,,,#{investor.email},1,#{investor.name},0,0,0,0,,2,1,0,0"
+#	puts @fxtp_cmd
+	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
+#	puts @response
+	return split_response(@response)
+  end
+	   
 end

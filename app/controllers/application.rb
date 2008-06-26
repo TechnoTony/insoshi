@@ -20,6 +20,24 @@ class ApplicationController < ActionController::Base
 
   $market = RestClient::Resource.new(FORESIGHT_URL)
 
+#The following are helper functions used to interact with the market
+  def split_response(response)
+  #this method returns an array with the full response in [0] and each line split subsequently
+    n=0
+	@array = []
+	@array[0] = response
+	response.each_line do |line|
+	  n += 1
+	  @array[n] = line
+	end
+	return @array
+  end
+  
+  def String.random_alphanumeric(size=16)
+  #creates a random string
+	(1..size).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join
+  end	
+
   private
 
     def admin_required

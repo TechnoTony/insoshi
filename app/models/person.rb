@@ -25,6 +25,9 @@
 #  blog_comment_notifications :boolean(1)      default(TRUE)
 #  email_verified             :boolean(1)      
 #
+#	add_column :people, :trader_id, :integer, :null => false, :default =>0
+#	add_column :people, :mkt_pwd, :string
+
 
 class Person < ActiveRecord::Base
   include ActivityLogger
