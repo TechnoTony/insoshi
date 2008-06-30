@@ -6,7 +6,8 @@
     <%= link_to company.name, :action => 'show', :id => company.id %><BR>
   <%- end -%>
 
-  <%= link_to 'new', :action => 'new' %>
+  <%= link_to 'Create New Company', :action => 'new' %><br />
+  <%= link_to 'Create New Catagory', :controller => 'catagory', :action => 'new' %><br />
 <%- end -%>
 
 <%- column_div :type => :secondary do -%>

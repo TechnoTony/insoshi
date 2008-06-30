@@ -4,5 +4,5 @@ This form can be used to test commands in the FXTP protocol:
   <table><tr><td>Command:  </td><td><%= text_field_tag(:cmd, params[:cmd], :size => 30) %></td></tr>
   <tr><td>Args:  </td><td><%= text_field_tag(:args, params[:args], :size => 30) %></td></tr>
   <tr><td>Check if admin: </td><td><%= check_box_tag(:admin, params[:admin]) %></td></tr></table>
-  <%= submit_tag %>
+  <%= submit_tag 'Submit' %>
 <% end %>

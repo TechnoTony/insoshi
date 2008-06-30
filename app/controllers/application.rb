@@ -45,13 +45,19 @@ class ApplicationController < ActionController::Base
   end
   
   def show_sectors
-  	@fxtp_cmd = "list_keywords"
+  	@fxtp_cmd = "list_keywords all"
 	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
     n=0
 	@array = []
 	@response.each_line do |line|
-	  if  line[0,8] == "CAT_SYM:"
-	    @array[n] = line[8..-1]
+	  if  line[0,3] == '200' || line[0,1] == '.'
+	  # do nothing
+	  else
+	    if  line[0,8] == "CAT_SYM:"
+	      @array[n] = line[8..-1]
+	    else
+	      @array[n] = line
+	    end
 	    n += 1
 	  end
 	end
