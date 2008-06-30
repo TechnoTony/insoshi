@@ -1,0 +1,10 @@
+<%- form_tag(:action => "update_catagory") do %>
+  Please enter the name for the new catagory:<br />
+  <%= text_field_tag(:catagory, params[:catagory], :size => 30) %>
+  <%= submit_tag 'Submit', :class => "button" %>
+<%- end %>
+
+This is the list of existing catagories:<br />
+<%- @sectors.each do |sector| %>
+  <%= sector %> <br />
+<%- end -%>
