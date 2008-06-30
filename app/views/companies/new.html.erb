@@ -16,7 +16,7 @@
 
   <div class="form_row">
     <label for="sector">Sector<span class="small"> (required)</span></label>
-    <%= f.select :sector, @sectors %>
+    <%= f.select :sector, @sectors %><span class="small">&nbsp;&nbsp;<%= link_to 'Add New Catagory', :controller => 'catagory', :action => 'new' %></span>
   </div>
   
   <div class="form_row">
