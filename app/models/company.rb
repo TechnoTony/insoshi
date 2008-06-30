@@ -6,6 +6,11 @@
 #      t.integer  :employees, :null => false, :default => 0
 #      t.timestamps
 #    end
+#	add_column	  :companies,  :last_price, :float
+#	add_column	  :companies,  :last7, :float	
+#	add_column	  :companies,  :week_change, :float	
+#	add_column	  :companies,  :vol_today, :float
+#	add_column	  :companies,  :vol_average, :float	
 
 class Company < ActiveRecord::Base
   MAX_NAME = MAX_SECTOR = MAX_STRING = SMALL_STRING_LENGTH

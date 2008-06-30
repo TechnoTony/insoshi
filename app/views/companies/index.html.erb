@@ -2,9 +2,26 @@
   
   <h2>This is the list of currently active companies:</h2>
 
-  <%- for company in @companies %>
-    <%= link_to company.name, :action => 'show', :id => company.id %><BR>
-  <%- end -%>
+  <table>
+    <thead>
+      <th>Company name</th>
+      <th>Ticker</th>
+      <th>Last price</th>
+      <th>Week change</th>
+      <th>Daily volume</th>
+    </thead>
+    <tbody>
+      <%- for company in @companies %>
+        <tr>
+        <td><%= company.name %></td>
+        <td><%= link_to company.ticker, :action => 'show', :id => company.id %></td>
+        <td><%= company.last_price %></td>
+        <td><%= company.week_change %>%</td>
+        <td><%= company.vol_today %></td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
 
   <%= link_to 'Create New Company', :action => 'new' %><br />
   <%= link_to 'Create New Catagory', :controller => 'catagory', :action => 'new' %><br />

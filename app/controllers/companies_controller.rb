@@ -2,6 +2,16 @@ class CompaniesController < ApplicationController
 
   def index
     @companies = Company.find(:all)
+	for company in @companies
+# This section is really not very efficient as we hit the market once for each stock.  Would be better to cache or at least save updates to the database
+      @response = get_price(company.ticker)
+	  company.last_price = @response[3]
+	  company.last7 = @response[4]
+	  company.week_change = 100*(Float(@response[3]) - Float(@response[4]))/Float(@response[4]) 
+	  company.vol_today = @response[5]
+	  company.vol_average = @response[6]
+	  puts company.ticker
+	end
   end
 
   def show
@@ -75,6 +85,13 @@ class CompaniesController < ApplicationController
   def create_stock(company)
     @fxtp_cmd = 'admin_claim ' + FORESIGHT_PWD + ",set,#{company.ticker},,#{company.name},#{company.description},1,,2009/12/31,,0,0,CAT_SYM:#{company.sector}"
 	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
+	return split_response(@response)
+  end
+  
+  def get_price(company_ticker)
+    @fxtp_cmd = 'asset_info ' + "#{company_ticker},last,last7,vol0,volA"
+	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
+#	puts @response
 	return split_response(@response)
   end
   
