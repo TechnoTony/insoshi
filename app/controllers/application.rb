@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
   FORESIGHT_PWD = @config["pwd"] 
 
 #Need to add some code to catch an error here if the market connection doesn't work
+#This code is not properly working
   begin
     $market = RestClient::Resource.new(FORESIGHT_URL)
   rescue  Exception
@@ -41,6 +42,20 @@ class ApplicationController < ActionController::Base
 	  @array[n] = line
 	end
 	return @array
+  end
+  
+  def show_sectors
+  	@fxtp_cmd = "list_keywords"
+	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
+    n=0
+	@array = []
+	@response.each_line do |line|
+	  if  line[0,8] == "CAT_SYM:"
+	    @array[n] = line[8..-1]
+	    n += 1
+	  end
+	end
+	return @array 
   end
   
   def String.random_alphanumeric(size=16)

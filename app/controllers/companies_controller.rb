@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
 
   def index
-    @companies = Company.find
+    @companies = Company.find(:all)
   end
 
   def show
@@ -10,6 +10,7 @@ class CompaniesController < ApplicationController
 
   def new
     @company = Company.new
+	@sectors = show_sectors
   end
 
   def edit
