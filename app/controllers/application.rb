@@ -24,7 +24,11 @@ class ApplicationController < ActionController::Base
   FORESIGHT_PWD = @config["pwd"] 
 
 #Need to add some code to catch an error here if the market connection doesn't work
-  $market = RestClient::Resource.new(FORESIGHT_URL)
+  begin
+    $market = RestClient::Resource.new(FORESIGHT_URL)
+  rescue  Exception
+    redirect_to :controller => :market, :action => "errors"
+  end
 
 #The following are helper functions used to interact with the market
   def split_response(response)

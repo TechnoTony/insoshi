@@ -17,4 +17,8 @@ class MarketController < ApplicationController
     @testdoc = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
   end
   
+  def errors
+  # This just loads a static page
+  end
+  
 end
