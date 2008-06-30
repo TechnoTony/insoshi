@@ -17,7 +17,13 @@ class ApplicationController < ActionController::Base
 #the following loads the code and creates the connection for the foresight server
   require 'lib/rest_client'
   require 'lib/resource'
+  require 'yaml'
+  
+  @config = YAML::load(File.open("#{RAILS_ROOT}/config/passwords.yml"))
+  FORESIGHT_URL = @config["url"]
+  FORESIGHT_PWD = @config["pwd"] 
 
+#Need to add some code to catch an error here if the market connection doesn't work
   $market = RestClient::Resource.new(FORESIGHT_URL)
 
 #The following are helper functions used to interact with the market

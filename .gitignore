@@ -9,6 +9,7 @@ db/schema.rb
 db/schema.sql
 db/*.sqlite3*
 config/database.yml
+config/passwords.yml
 public/photos/*
 uuid.state
 nbproject*

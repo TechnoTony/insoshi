@@ -2,9 +2,13 @@
 
 <%- column_div :type => :primary do -%>
   
-  <h2>Hello and welcome to The Start-Up Exchange</h2>
-  <p>This site is currently still under development. At the moment it is mostly a deployment of the Insoshi social networking platform, but we are working hard to build in the intended features which will get the site up and running.</p>
-  <p>Come back when we launch to trade in the most exciting up and coming startups and private companies.</p>
+  <%- if logged_in? -%>
+    <%- #display trading portfolio ->
+  <%- else -%>
+  	<h2>Hello and welcome to The Start-Up Exchange</h2>
+  	<p>This site is currently still under development. At the moment it is mostly a deployment of the Insoshi social networking platform, but we are working hard to build in the intended features which will get the site up and running.</p>
+  	<p>Come back when we launch to trade in the most exciting up and coming startups and private companies.</p>
+  <%- end -%> 
    
   <%= render :partial => 'feed' %>
 <%- end -%>
