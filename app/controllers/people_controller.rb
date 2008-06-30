@@ -44,7 +44,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
       @person.email_verified = false if global_prefs.email_verifications?
       @response = create_investor(@person)
-	  puts @response[1][0,1]
+#	  puts @response[1][0,1]
 	  if @response[1][0,1] == '2'
 	    @person.trader_id = @response[2][5..-1]
 		@person.mkt_pwd = @response[4][10..-1]
