@@ -10,7 +10,6 @@ class CompaniesController < ApplicationController
 	  company.week_change = 100*(Float(@response[3]) - Float(@response[4]))/Float(@response[4]) 
 	  company.vol_today = @response[5]
 	  company.vol_average = @response[6]
-	  puts company.ticker
 	end
   end
 

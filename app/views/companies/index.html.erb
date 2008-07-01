@@ -28,7 +28,18 @@
 <%- end -%>
 
 <%- column_div :type => :secondary do -%>
-  
+  <h2>Quick Trade</h2>
+  <table>
+    <%- form_tag(:controller => 'market', :action => "trade") do %>
+    <tr><td>Ticker:</td>
+    <td><%= text_field_tag(:ticker, params[:ticker], :size => 6) %></td></tr>
+    <tr><td>Type:</td>
+    <td><%= select_tag(:trade_type, options_for_select(%w{buy sell},params[:trade_type])) %></td></tr>
+    <tr><td>Quantity:</td>
+    <td><%= text_field_tag(:quantity, params[:quantity], :size => 6) %></td></tr>
+    <tr><td></td><td><%= submit_tag 'Submit', :class => "button" %></td></tr>
+  </table>
+<%- end %>
 
 
 <%- end -%>
