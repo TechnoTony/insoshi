@@ -31,7 +31,7 @@ before_filter :login_required
 	end
 	@fxtp_cmd = "orders #{current_person.trader_id},#{current_person.mkt_pwd},new #{params[:ticker]} #{@type}#{params[:quantity]}@market"
 	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
-	puts @response
+	flash[:notice] = split_response(@response)[2]
 	redirect_to :controller => 'home', :action => 'index'
   end
   

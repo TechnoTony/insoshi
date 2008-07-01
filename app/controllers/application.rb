@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
   @config = YAML::load(File.open("#{RAILS_ROOT}/config/passwords.yml"))
   FORESIGHT_URL = @config["url"]
   FORESIGHT_PWD = @config["pwd"] 
+  SEEDFUNDS = @config["seed_funds"]
+  MKT_MKR_FUNDS = @config["mkt_mkr_funds"]
 
 #Need to add some code to catch an error here if the market connection doesn't work
 #This code is not properly working
@@ -42,6 +44,12 @@ class ApplicationController < ActionController::Base
 	  @array[n] = line
 	end
 	return @array
+  end
+  
+  def return_portfolio
+    @fxtp_cmd = "account #{current_person.trader_id},-2"
+	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
+	puts @response
   end
   
   def show_sectors

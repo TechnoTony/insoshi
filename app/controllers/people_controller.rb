@@ -163,17 +163,14 @@ class PeopleController < ApplicationController
 #What happens if server isn't working
 #What happens if user enters wrong information  
   def delete_investor(trader_id)
-  	@fxtp_cmd = 'admin_user ' + FORESIGHT_PWD + ",set,#{trader_id},,,#{String.random_alphanumeric}@blah.com,1,#{String.random_alphanumeric},0,0,0,0,,2,1,0,0"
-#	puts @fxtp_cmd
+  	@fxtp_cmd = 'admin_user ' + FORESIGHT_PWD + ",set,#{trader_id},,,#{String.random_alphanumeric}@blah.com,1,#{String.random_alphanumeric},-" + String(SEEDFUNDS) + ",0,0,0,,2,1,0,0"
 	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
-#	puts @response
-#	puts @response[0,1]
+	puts @response
 	return @response[0,1]
   end	
 
   def create_investor(investor)
-  	@fxtp_cmd = 'admin_user ' + FORESIGHT_PWD + ",new,,,#{investor.email},1,#{investor.name},0,0,0,0,,2,1,0,0"
-#	puts @fxtp_cmd
+  	@fxtp_cmd = 'admin_user ' + FORESIGHT_PWD + ",new,,,#{investor.email},1,#{investor.name}," + String(SEEDFUNDS) + ",0,0,0,,2,1,0,0"
 	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
 #	puts @response
 	return split_response(@response)
