@@ -30,6 +30,7 @@ class CompaniesController < ApplicationController
   
   def create
     @company = Company.new(params[:company])
+	@company.creator = current_person.name
 	@sectors = show_sectors
     respond_to do |format|
 	  if check_ticker(@company.ticker) == '2'
@@ -82,7 +83,7 @@ class CompaniesController < ApplicationController
   
   
   def create_stock(company)
-    @fxtp_cmd = 'admin_claim ' + FORESIGHT_PWD + ",set,#{company.ticker},,#{company.name},#{company.description},1,,2009/12/31,,0,0,CAT_SYM:#{company.sector}"
+    @fxtp_cmd = 'admin_claim ' + FORESIGHT_PWD + ",set,#{company.ticker},,#{company.name},#{company.description},1,,2009/12/31,,0," + String(MKT_MKR_FUNDS) + ",CAT_SYM:#{company.sector}"
 	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
 	return split_response(@response)
   end

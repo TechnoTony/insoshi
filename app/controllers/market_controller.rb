@@ -24,14 +24,15 @@ before_filter :login_required
   end
   
   def trade
-    if params[:trade_type] == "Buy" 
+    if params[:trade_type] == "buy" 
 	  @type = 'B' 
 	else 
 	  @type = "S" 
 	end
 	@fxtp_cmd = "orders #{current_person.trader_id},#{current_person.mkt_pwd},new #{params[:ticker]} #{@type}#{params[:quantity]}@market"
+	puts @fxtp_cmd
 	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
-	flash[:notice] = split_response(@response)[2]
+	flash[:notice] = @response
 	redirect_to :controller => 'home', :action => 'index'
   end
   
