@@ -9,7 +9,7 @@
   <tr><td>Net Worth:	</td><td><%= number_to_currency current_person.net_worth %></td></tr>
   </table>
 
-  <h2>Stock list</h2>
+  <h2>Stock List</h2>
   <table>
     <thead>
       <th>Company name</th>
@@ -48,6 +48,7 @@
 <%- column_div :type => :secondary do -%>
   <%= render :partial => "searches/box" %>
   <%- if logged_in? -%>
+    <%= render :partial => 'shared/quick_trade' %>
     <%= render :partial => 'requested_contacts' %>
     <%= render :partial => 'messages_preview' %>
     <%= render :partial => 'shared/contacts_preview',
