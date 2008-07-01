@@ -3,10 +3,32 @@
 <%- column_div :type => :primary do -%>
   
   <%- if logged_in? -%>
-  <h1>Portfolio</h1>
+  <h2>Portfolio</h2><br />
+  <table>
+  <tr><td>Available Cash:	</td><td><%= number_to_currency current_person.current_cash %></td></tr>
+  <tr><td>Net Worth:	</td><td><%= number_to_currency current_person.net_worth %></td></tr>
+  </table>
+
   <h2>Stock list</h2>
-  
-  
+  <table>
+    <thead>
+      <th>Company name</th>
+      <th>Ticker</th>
+      <th>Quantity</th>
+      <th>Last Price</th>
+      <th>Profit</th>
+    </thead>
+    <tbody>
+      <%- @stocks.each do |stock| %>
+	    <tr><td><%= stock[:name] %></td>
+        <td><%= stock[:ticker] %></td>
+        <td><%= Float(stock[:quantity]) %></td>
+        <td><%= number_to_currency stock[:last] %></td>
+        <td><%= number_to_currency stock[:profit] %></td>
+        </tr>
+      <%- end %>
+    </tbody>
+  </table>    
   <h2>Watch List</h2>
   
   <%- else -%>

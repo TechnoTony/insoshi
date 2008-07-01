@@ -7,7 +7,9 @@ class FixUpPageViews < ActiveRecord::Migration
 	add_column	  :companies,  :last7, :float	
 	add_column	  :companies,  :week_change, :float	
 	add_column	  :companies,  :vol_today, :float
-	add_column	  :companies,  :vol_average, :float		
+	add_column	  :companies,  :vol_average, :float	
+	add_column	  :people,	   :net_worth, :float
+	add_column    :people,	   :current_cash,  :float	
   end
 
   def self.down
@@ -19,5 +21,7 @@ class FixUpPageViews < ActiveRecord::Migration
 	remove_column :companies,  :week_change	
 	remove_column :companies,  :vol_today
 	remove_column :companies,  :vol_average	
+	remove_column :people,	   :net_worth 
+	remove_column :people,	   :current_cash 
   end
 end

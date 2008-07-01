@@ -5,8 +5,8 @@ class HomeController < ApplicationController
     @body = "home"
     @topics = Topic.find_recent
     @members = Person.find_recent
-	@stocks = return_portfolio
     if logged_in?
+	  @stocks = return_portfolio
       @feed = current_person.feed
       @some_contacts = current_person.some_contacts
       @requested_contacts = current_person.requested_contacts

@@ -27,6 +27,8 @@
 #
 #	add_column :people, :trader_id, :integer, :null => false, :default =>0
 #	add_column :people, :mkt_pwd, :string
+#	add_column	  :people,	   :net_worth, :float
+#	add_column    :people,	   :current_cash,  :float	
 
 
 class Person < ActiveRecord::Base

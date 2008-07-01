@@ -50,6 +50,30 @@ class ApplicationController < ActionController::Base
     @fxtp_cmd = "account #{current_person.trader_id},-2"
 	@response = $market.post({'cmd' => @fxtp_cmd}, :accept => 'html')
 	puts @response
+	@account = split_response(@response)
+	current_person.current_cash = @account[4]
+	current_person.net_worth = @account[5]
+    @stocks = []
+	n = 0 #n will track how many stocks in the portfolio
+	until String(@account[6*n+10][0,1]) == '.' || n > 100
+	#note the limit on stocks in a portfolio of 100, should be sufficient!!
+	  @stock_details = Hash.new
+	  @stock_details[:ticker] = @account[6*n+10]
+	  @stock_details[:quantity] = @account[6*n+11]
+	  @stock_details[:cost] = @account[6*n+12]
+	  @stock_details[:price] = @account[6*n+13]
+	  @stock_details[:name] = @account[6*n+14]
+	  #I don't quite know why this next line works as it does, but it does!!
+	  @stock_details[:last] = @stock_details[:price].sub(/^.+\t/,'')
+	  @stock_details[:profit] = Float(@stock_details[:quantity])*(Float(@stock_details[:last]) - Float(@stock_details[:cost]))
+	  @stocks[n] = @stock_details
+	  puts @stocks
+	  puts 'Next line starts here'
+#	  puts @stock_details[:price][/\t*$/]
+#	  puts String(n) + ": " + String(@account[6*n+10])
+	  n+=1
+	end
+	return @stocks
   end
   
   def show_sectors
